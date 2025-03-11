@@ -1,28 +1,25 @@
-import { projectsData } from "@/lib/data";  // Import des données
+import { projectsData } from "@/lib/data";  
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { FaGithub } from "react-icons/fa"; // Import de l'icône GitHub
+import { FaGithub } from "react-icons/fa";
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  // Recherche du projet avec le slug correspondant
+export default function ProjectPage({ params }: { params: { slug: string } }) {  
+  console.log("Params:", params);  // Debugging
+
   const project = projectsData.find((p) => p.slug === params.slug);
 
-  // Si le projet n'existe pas, retourne une page 404
   if (!project) {
     return notFound();
   }
 
-  // Recherche du premier lien GitHub trouvé dans les sections si non défini au niveau du projet
   const githubLink = project.githubLink || project.sections.find(section => section.githubLink)?.githubLink;
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
-      {/* Titre du projet */}
       <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
         {project.title}
       </h1>
-      
-      {/* Bouton GitHub, s'affiche uniquement si githubLink existe */}
+
       {githubLink && (
         <div className="mb-6">
           <a 
@@ -37,7 +34,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         </div>
       )}
 
-      {/* Images du projet */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {project.images?.length > 0 ? (
           project.images.map((img, index) => (
@@ -55,7 +51,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         )}
       </div>
 
-      {/* Sections du projet */}
       <div className="mt-8 space-y-8">
         {project.sections?.length > 0 ? (
           project.sections.map((section, index) => (
@@ -82,17 +77,15 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         )}
       </div>
       
-      {/* Technologies utilisées */}
       <div className="mt-6">
-        <h2 className="text-xl font-semibold"> Used Technologies  :</h2>
+        <h2 className="text-xl font-semibold">Used Technologies:</h2>
         <ul className="list-disc list-inside mt-2 flex flex-wrap gap-3">
           {project.tags.map((tag) => (
             <li key={tag} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md">{tag}</li>
           ))}
         </ul>
       </div>
-      
-      {/* Bouton de retour aux projets */}
+
       <div className="mt-8">
         <a
           href="/#projects"
