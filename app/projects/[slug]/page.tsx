@@ -1,17 +1,34 @@
-import { projectsData } from "@/lib/data";  
+import { projectsData } from "@/lib/data";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {  
-  console.log("Params:", params);  // Debugging
+interface ProjectPageProps {
+  params: { slug: string };
+}
+
+export function generateStaticParams() {
+  console.log(" Generating Static Params...");
+  return projectsData.map((project) => ({ slug: project.slug }));
+}
+
+export default function ProjectPage({ params }: ProjectPageProps) {
+  console.log(" Params received:", params);
+
+  // Vérifier si params.slug est bien défini
+  if (!params?.slug) {
+    console.error(" Slug is missing in params!");
+    return notFound();
+  }
 
   const project = projectsData.find((p) => p.slug === params.slug);
 
   if (!project) {
+    console.error(` Project not found for slug: ${params.slug}`);
     return notFound();
   }
 
+  // Récupérer le lien GitHub du projet ou d'une de ses sections
   const githubLink = project.githubLink || project.sections.find(section => section.githubLink)?.githubLink;
 
   return (

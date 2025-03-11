@@ -53,6 +53,7 @@ export const projectsData = [
     images: [
       "/Filtre.png", 
     ],
+    githubLink:"",
     sections: [
       {
         title: "Introduction",
@@ -166,6 +167,7 @@ export const projectsData = [
     images: [
       "/horloge.png", 
     ],
+    githubLink :"",
     sections: [
       {
         title: "Introduction",
@@ -248,7 +250,7 @@ export const projectsData = [
   {
     title: "Smart Cart System",
     slug: "smart-cart-system",
-
+    images: "",
     githubLink: "https://github.com/boc4021/Smart-Cart-System",
     sections: [
       {
