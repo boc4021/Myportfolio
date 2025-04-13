@@ -5,7 +5,7 @@ import { FaGithub } from "react-icons/fa";
 
 // Type for your page
 interface ProjectPageProps {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 // Type-safe static params generator
@@ -14,17 +14,17 @@ export function generateStaticParams(): { slug: string }[] {
 }
 
 // Page component
-export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { slug } = await params; // Resolve the promise to get the slug
+export default function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = params;
   const project = projectsData.find((p) => p.slug === slug);
 
   if (!project) {
     return notFound();
   }
 
-  const githubLink =
-    project.githubLink ||
-    project.sections.find((section) => section.githubLink)?.githubLink;
+  const githubLink = project.githubLink;
+  const sections = project.sections ?? [];
+  const tags = project.tags ?? [];
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
@@ -64,18 +64,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </div>
 
       <div className="mt-8 space-y-8">
-        {project.sections?.length > 0 ? (
-          project.sections.map((section, index) => (
+        {sections.length > 0 ? (
+          sections.map((section, index) => (
             <div key={index}>
-              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
-                {section.title}
-              </h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300">{section.content}</p>
+              {section.title && (
+                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
+                  {section.title}
+                </h2>
+              )}
+              <p className="text-lg text-gray-700 dark:text-gray-300">
+                {section.content}
+              </p>
               {section.image && (
                 <div className="mt-4">
                   <Image
                     src={section.image}
-                    alt={`Image for ${section.title}`}
+                    alt={`Image for ${section.title || "section"}`}
                     width={600}
                     height={400}
                     className="rounded-lg shadow-lg"
@@ -89,19 +93,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         )}
       </div>
 
-      <div className="mt-6">
-        <h2 className="text-xl font-semibold">Used Technologies:</h2>
-        <ul className="list-disc list-inside mt-2 flex flex-wrap gap-3">
-          {project.tags.map((tag) => (
-            <li
-              key={tag}
-              className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {tags.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold">Used Technologies:</h2>
+          <ul className="list-disc list-inside mt-2 flex flex-wrap gap-3">
+            {tags.map((tag) => (
+              <li
+                key={tag}
+                className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="mt-8">
         <a

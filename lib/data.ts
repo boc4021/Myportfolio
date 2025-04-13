@@ -32,21 +32,21 @@ export const links = [
     hash: "#contact",
   },
 ] as const;
-type Section = {
-  title: string;
-  content: string;
-  image?: string;
-  githubLink?: string;
-};
 
-type Project = {
+export type Project = {
   title: string;
   slug: string;
   images: string[];
   githubLink?: string;
-  sections: Section[];
-  tags: string[];
+  sections?: {
+    title: string;
+    content: string;
+    image?: string;
+  }[];
+  tags?: string[];
 };
+
+
 export const experiencesData = [
 
   {
@@ -67,8 +67,10 @@ export const experiencesData = [
   },
 ] as const;
 
-export const projectsData :readonly Project[]  = [
-  {
+
+  export const projectsData: Project[] = [
+    {
+
     title: "12-bit Digital Low-Pass Filter in VHDL and Schematic on AMS 0.35µm Technology",
     slug: "digital-low-pass-filter",
     images: [
