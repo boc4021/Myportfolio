@@ -67,7 +67,7 @@ export const experiencesData = [
   },
 ] as const;
 
-export const projectsData: Project[] = [
+export const projectsData :readonly Project[]  = [
   {
     title: "12-bit Digital Low-Pass Filter in VHDL and Schematic on AMS 0.35µm Technology",
     slug: "digital-low-pass-filter",
