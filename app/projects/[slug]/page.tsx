@@ -5,7 +5,7 @@ import { FaGithub } from "react-icons/fa";
 
 // Type for your page
 interface ProjectPageProps {
-  params: { slug: string };
+  params: { slug: string } | Promise<{ slug: string }>;
 }
 
 // Type-safe static params generator
@@ -14,8 +14,10 @@ export function generateStaticParams(): { slug: string }[] {
 }
 
 // Page component
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = projectsData.find((p) => p.slug === params.slug);
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  // Resolve params if it's a Promise
+  const resolvedParams = await params;
+  const project = projectsData.find((p) => p.slug === resolvedParams.slug);
 
   if (!project) {
     return notFound();
