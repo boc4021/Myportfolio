@@ -32,7 +32,21 @@ export const links = [
     hash: "#contact",
   },
 ] as const;
+type Section = {
+  title: string;
+  content: string;
+  image?: string;
+  githubLink?: string;
+};
 
+type Project = {
+  title: string;
+  slug: string;
+  images: string[];
+  githubLink?: string;
+  sections: Section[];
+  tags: string[];
+};
 export const experiencesData = [
 
   {
@@ -43,20 +57,29 @@ export const experiencesData = [
     icon: React.createElement(FaConnectdevelop),
     date: "2022 ",
   },
-
+  {
+    title: "Engineer assistant : Current Sensor Development and Testing",
+    location: "Annecy ,France",
+    description:
+      "Led the enhancement and testing of an innovative current measurement concept. Responsibilities included analyzing an existing prototype and specification, designing a control PCB (schematics + documentation), adapting a test/calibration bench, and programming a microcontroller to validate system performance. Developed and executed a detailed test plan to evaluate sensor characteristics such as gain, noise, bandwidth, and thermal drift. Analyzed results, proposed design improvements, and documented the full development and testing process.",
+    icon: React.createElement(FaConnectdevelop),
+    date: "2025 ",
+  },
 ] as const;
 
-export const projectsData = [
+export const projectsData: Project[] = [
   {
     title: "12-bit Digital Low-Pass Filter in VHDL and Schematic on AMS 0.35µm Technology",
     slug: "digital-low-pass-filter",
     images: [
       "/Filtre.png", 
     ],
+    
     githubLink:"",
     sections: [
       {
         title: "Introduction",
+        
         content: "This project focuses on designing a digital low-pass filter for integrated circuits. The objective is to create an efficient digital filter that processes signals while minimizing noise and distortion."
     },
     {
@@ -220,7 +243,7 @@ export const projectsData = [
       {
         title: "Installation and Setup",
         content:
-          "First, install Python and OpenCV. You can install Python from python.org and use the command `pip install opencv-python` to install OpenCV. Make sure the Haar cascade file remains in the same folder as your Python program to enable facial detection.",
+          "First, install Python and OpenCV. You can install Python from python.org and use the command pip install opencv-python to install OpenCV. Make sure the Haar cascade file remains in the same folder as your Python program to enable facial detection.",
       },
       {
         title: "Understanding Facial Recognition",
@@ -250,7 +273,7 @@ export const projectsData = [
   {
     title: "Smart Cart System",
     slug: "smart-cart-system",
-    images: "",
+    images: [],
     githubLink: "https://github.com/boc4021/Smart-Cart-System",
     sections: [
       {

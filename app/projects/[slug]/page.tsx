@@ -32,6 +32,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   const githubLink = project.githubLink || project.sections.find(section => section.githubLink)?.githubLink;
 
   return (
+    <html lang="en" suppressHydrationWarning>
     <div className="max-w-4xl mx-auto px-6 py-12">
       <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
         {project.title}
@@ -112,5 +113,6 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         </a>
       </div>
     </div>
+    </html>
   );
 }
